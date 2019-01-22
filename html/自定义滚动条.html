@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .container {
+      position: relative;
+      width: 300px;
+      height: 600px;
+      border: 1px solid brown;
+      margin: 200px;
+      overflow: hidden;
+    }
+    .scroll {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 20px;
+      height: 100%;
+      background: #ccc;
+    }
+    .bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 20px;
+      height: 50px;
+      border-radius: 5px;
+      border: 1px solid brown;
+      background: brown;
+    }
+    .content {
+      width: 280px;
+    }
+  </style>
+</head>
+<body>
+  <section class="container" id="box">
+    <div class="content" id="content">
+      嘻嘻
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！紫霞神功，天下无敌！太虚剑意，天下无敌！
+      哈哈
+    </div>
+    <div class="scroll" id="scroll">
+      <div class="bar" id="bar"></div>
+    </div>
+  </section>
+  <script>
+    //获取包裹的框
+    var box = document.getElementById('box');
+    //获取内容div
+    var content = document.getElementById('content');
+    //获取滚动条框
+    var scroll = document.getElementById('scroll');
+    //获取滚动条
+    var bar = document.getElementById('bar');
+    
+    //滚动条的长度/ 滚动框的长度 =  内容框的长度 / 内容
+    //滚动条的长度 = 滚动框的长度 * 内容框的长度 / 内容
+    var barHeight = scroll.offsetHeight * box.offsetHeight / content.offsetHeight;
+    bar.style.height = Math.floor(barHeight) + 'px';
+
+    bar.onmousedown = function (e) {
+      //鼠标距离滚动条上边沿位置  =  鼠标当前在视图区域的坐标 - 滚动条距离上边的高度
+      var spaceY = e.clientY - bar.offsetTop;
+      //因为按住滚动条后可以在页面的任意位置进行滚动，所以在document上添加滚动事件
+      document.onmousemove = function (e) {
+        //设置滚动条位置 = 鼠标当前在视图区域的坐标 - 鼠标距离滚动条上边沿位置
+        var y = e.clientY - spaceY ;
+        //设置滚动条的滚动边界
+        //最小边界
+        y = (y <= 0 ? 0 : y);
+        //最大边界
+        y = (y >= scroll.offsetHeight - barHeight ? scroll.offsetHeight - barHeight : y );
+        bar.style.top = y + 'px';
+        
+        //设置滚动时不选中内容  document.selection.empty() 兼容ie8
+        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+
+        //内容跟随滚动条滚动
+        //滚动条滚动距离 / 内容框的长度  =  内容滚动距离  /  内容长度
+        //所以 内容滚动距离 =  滚动条滚动距离 * 内容长度 / 内容框的长度
+        var scrollLength = Math.ceil(y * content.offsetHeight / box.offsetHeight);
+        content.style.marginTop = -scrollLength + 'px';
+      }
+    };
+    document.onmouseup = function () {
+      document.onmousemove = null ;
+    }
+  </script>
+</body>
+</html>
